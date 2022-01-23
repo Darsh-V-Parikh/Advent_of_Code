@@ -18,14 +18,15 @@ int main() {
 
     getInstructions();
     printInstructions();
-    Board* nw;
+
     printf("Finding boards...\n");
-    while(nw = makeBoard(fp)) {
+    while(makeBoard(fp)) {
         // printf("Fetched another board\n");
         remaining++;
     }
     printf("_Found %d boards_\n", remaining);
     // printAllBoards();
+    fclose(fp);
 
     int exercise;
     void (*tickOff)(int);
@@ -59,11 +60,13 @@ int main() {
     printf("Sum: %d   Number Called: %d   Multiplied: %d\n", 
             sum, (multiplied/sum), multiplied);
     
+    saveAllBoard(fp);
     deleteBoards();
     free(instructions);
     return 0;
 }
 
+// -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 void getInstructions() {
     /*count possible instructions*/
@@ -99,7 +102,7 @@ void printInstructions() {
 
 void tickOff1(int number) {
     winner = NULL;
-    Board* curr = Head;
+    Board* curr = headNode();
     while(curr) {
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
@@ -121,7 +124,7 @@ void tickOff1(int number) {
 
 void tickOff2(int number) {
     winner = NULL;
-    Board* curr = Head;
+    Board* curr = headNode();
     while(curr) {
         if (curr->complete) {
             curr = curr->nextboard;
