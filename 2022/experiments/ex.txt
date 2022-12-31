@@ -1,0 +1,6 @@
+Monkey 0:
+  Starting items: 73, 77
+  Operation: new = old * 5
+  Test: divisible by 11
+    If true: throw to monkey 6
+    If false: throw to monkey 5
